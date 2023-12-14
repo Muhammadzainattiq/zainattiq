@@ -6,3 +6,11 @@ def custom_encoder(obj):
 data = {"numbers": {1, 2, 3}, "text": "Hello"}
 json_string = json.dumps(data, default=custom_encoder)
 print(json_string)
+def custom_decoder(dct):
+    if "numbers" in dct:
+        return {"numbers": set(dct["numbers"]), "text": dct["text"]}
+    return dct
+
+json_string = '{"numbers": [1, 2, 3], "text": "Hello"}'
+python_object = json.loads(json_string, object_hook=custom_decoder)
+print(python_object)
