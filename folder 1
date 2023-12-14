@@ -1,0 +1,8 @@
+def custom_encoder(obj):
+    if isinstance(obj, set):
+        return list(obj)
+    raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+
+data = {"numbers": {1, 2, 3}, "text": "Hello"}
+json_string = json.dumps(data, default=custom_encoder)
+print(json_string)
